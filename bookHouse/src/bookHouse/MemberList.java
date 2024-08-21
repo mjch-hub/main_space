@@ -24,8 +24,7 @@ public class MemberList {
 
 	// 3. 로그인 메소드 login 구현.
 	public Member login(Scanner scanner) {
-		boolean loginLoop = true;
-		while (loginLoop) {
+		while (true) {
 			// id입력받기
 			System.out.println("아이디를 입력해주세요 : ");
 			String id = scanner.nextLine();
@@ -42,6 +41,7 @@ public class MemberList {
 			System.out.println("비밀번호를 입력해주세요 : ");
 			String pw = scanner.nextLine();
 
+			//pw 일치하는 지 확인 : 일치하지 않으면 일치 하지 않는다고 반환
 			if (!selectMember.get(0).getPw().equals(pw)) {
 				System.out.println("🚨 로그인 정보가 일치하지 않습니다!");
 				return null;

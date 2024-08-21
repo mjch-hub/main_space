@@ -20,7 +20,7 @@ public class Member {
 		super();
 		this.id = id;
 		this.pw = pw;
-		this.bookList = bookList;
+		this.bookList = new BookList();
 		
 	}
 

@@ -101,8 +101,28 @@ public class Book {
 	public static void setCount(int count) {
 		Book.count = count;
 	}
+
 	
 	
+	
+	//4. 책의 정보를 예쁘게 나열하는 toString 메소드
+	@Override
+	public String toString() {
+		return index + "  [ " + title + " " + author + " 지음 " + price + " 원 " + publisher + " 출간일 : "
+				+ pubdate ;
+	}
+	
+	
+	
+	//5. 책의 정보를 (isEbook)변수 결과에 따라 다르게 호출하는 메소드
+	public void bookInfo() {//isEbook이 true면 
+		if(isEbook) {
+			System.out.println( toString()+ " (E-book) ]");
+		}else
+		{
+			System.out.println(toString()+ " ]");
+		}
+	}
 	
 	
 }
