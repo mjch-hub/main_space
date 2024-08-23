@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+
 public class BookList {
 	/*BookList 클래스 구성 요소
 	 * 1. Book클래스의 정보를 이용하여 만든 리스트 bookList
@@ -19,13 +20,9 @@ public class BookList {
 	 * 11. 오늘의 책을 추천해주는 randomBook 메소드
 	 */
 
-	
-	
-	
-	
+
 	// 1. Book클래스의 정보를 이용하여 만든 리스트 bookList
 		private List<Book> bookList = new ArrayList<Book>();
-		
 		public void bookList(List<Book> bookList) {
 			this.bookList = bookList;
 		}
@@ -37,8 +34,6 @@ public class BookList {
 			bookList.add(new Book("종이책1","저자3",0,"출판사2","20120202",2));
 			bookList.add(new Book("종이책2","저자4",0,"출판사2","20130303",2));
 	}
-		
-		
 		
 		//2. 새로운 책 객체 newBook을 생성하여 bookList에 넣는 create 메소드.
 		public void create(Scanner scan) {
@@ -71,11 +66,17 @@ public class BookList {
 			
 		}
 		
-		//3. 북 리스트를 출력하는 read 메소드
-		public void aBread() {
-			for(Book book : bookList) {
-				book.bookInfo();
-			}
+		//3. 전체 북 리스트를 출력하는 aBread 메소드
+		public void aBread(Scanner scan) {
+			boolean loop = true;
+			
+			while(loop) {
+				for(Book book : bookList) {
+					book.bookInfo();	
+				}//for
+				sortAndmodify(scan);
+				break;
+			}	
 		}
 		
 		//4. bookList 중 e-book만 출력하는 eBRead 메소드 (filter 활용할 것!)
@@ -151,7 +152,6 @@ public class BookList {
 			
 		}
 		
-		
 		//7. 책의 제목으로 검색할 수 있는 기능을 지닌 titleFinder 메소드
 		public void titleFinder(List<Book> bookList,Scanner scan) {
 			boolean loop = true;
@@ -168,10 +168,6 @@ public class BookList {
 				
 			}
 			
-			
-			
-
-		
 		//8. 책을 저자명으로 검색할 수 있는 기능을 가진 authorFinder 메소드
 		public void authorFinder(List<Book> bookList,Scanner scan) {
 			boolean loop = true;
@@ -188,8 +184,7 @@ public class BookList {
 			}
 		
 		}
-		
-		
+			
 		//9. 책을 출판사명으로 검색할 수 있는 기능을 가진 publisherFinder 메소드
 		public void publisherFinder(List<Book> bookList,Scanner scan) {
 			boolean loop = true;
@@ -204,14 +199,7 @@ public class BookList {
 				}
 			}
 			
-			
-			
-			
-			
-			
 		}
-		
-		
 		
 		//10. 책을 도서번호(index)로 검색할 수 있는 기능을 지닌 indexFinder 메소드
 		public void indexFinder(List<Book> bookList,Scanner scan) {
@@ -227,30 +215,134 @@ public class BookList {
 				}
 			}
 			
-	
-		
-		
-		//11. 책의 가격을 수정할 수 있는 기능을 가진 updateB 메소드
-		public void updateB(int index, int price) {
-			List<Book> selectList = bookList.stream()
-					.filter(book -> book.getIndex() == index).toList();
-			Book selectBook = selectList.get(index);
+		//11. 정렬,수정,삭제 선택 메소드
+		public void sortAndmodify (Scanner scan) {
+			//수정 모드에 필요한 것.
+			//1. 정렬,수정, 삭제를 선택하는 switch문
+			//2. 가격 수정 메소드 호출 : 메소드 호출을 위한 접근경로(책리스트)
+			//3. 북 객체 삭제 메소드 호출.
+			System.out.println(
+			"""
+			╓=======================================❣️ 도서 관리 ❣️============================================╖
 			
-			//가격 수정
-			selectBook.setPrice(price);
-	
+			       1.제목순으로 정렬      2.가격순으로 정렬      3.최신순으로 정렬      4.책 수정하기      5.책 삭제하기
+			       
+			╙=============================================❣️================================================╜		
+			"""		
+					
+			);
+			
+			int select = Integer.parseInt(scan.nextLine());
+			//int index = Integer.parseInt(scan.nextLine());
+			//int price = Integer.parseInt(scan.nextLine());
+			
+			switch(select) {
+			case 1 : {//1.제목순으로 정렬  
+				
+				break;
+			}
+			case 2 : {//2.가격순으로 정렬  
+				
+				break;
+			}
+			case 3 : {//3.최신순으로 정렬
+				
+				break;
+			}
+			case 4 : {//4.책 수정하기
+				updatePrice(scan);
+				
+				break;
+			}
+			case 5 : {//5.책 삭제하기
+				deleteB(scan);
+				break;
+			}
+			}//switch
 		}
 		
-		//12. 책을 삭제할 수 있는 deleteB 메소드
-		public void deleteB(int index) {
-			List<Book> selectList = bookList.stream()
-					.filter(book -> book.getIndex() == index).toList();
-			Book selectBook = selectList.get(index);
-			bookList.remove(selectList.get(index));
+		//12. 가격수정 메소드
+		public void updatePrice(Scanner scan) {
+			
+			/*0.리스트 출력.(선결조건)
+			 *1.수정하고 싶은 도서번호를 입력받음.
+			 *2.입력 받은 값을 getIndex(입력받은도서번호)을 이용해 해당 도서번호를 가진 책을 불러옴.
+			 *3.수정하고 싶은 가격을 입력받음.
+			 *4.선택된 책에 대해 setPrice(입력받은가격)로 접근하여 가격을 수정.(단 0원 이하는 되지 않도록 설정!)
+			 *5.수정된 책 정보를 출력!
+			 */
+			
+			
+				//1. 수정하고 싶은 도서번호를 입력받음.
+				System.out.println("수정하고 싶은 도서의 도서번호를 입력해주세요 : ");
+				int pickIndex = Integer.parseInt(scan.nextLine());
+				
+				//2.입력 받은 값을 getIndex(입력받은도서번호)을 이용해 해당 도서번호를 가진 책을 불러옴.
+				Book selectBook = bookList.get(pickIndex);
+				
+				//3.수정하고 싶은 가격을 입력받음.
+				System.out.println("가격을 수정해 주세요 : ");
+				int newPrice = Integer.parseInt(scan.nextLine());
+				
+				//4.선택된 책에 대해 setPrice(입력받은가격)로 접근하여 가격을 수정.(단 0원 이하는 되지 않도록 설정!)
+				if(newPrice > 0) {
+					selectBook.setPrice(newPrice);
+					System.out.println("✔ 수정 완료!");
+					selectBook.bookInfo();
+				}else {
+					System.out.println("잘못된 값입니다.");
+				
+				
+				
+			}
+			
+			
+			
+			
+			
 			
 		}
 		
-		//13. 오늘의 책을 추천해주는 randomBook 메소드
+		//13. 책을 삭제할 수 있는 deleteB 메소드
+		public void deleteB(Scanner scan) {
+			//1. 수정하고 싶은 도서번호를 입력받음.
+			System.out.println("삭제하고 싶은 도서의 도서번호를 입력해주세요 : ");
+			int pickIndex = Integer.parseInt(scan.nextLine());
+			
+			//2.입력 받은 값을 getIndex(입력받은도서번호)을 이용해 해당 도서번호를 가진 책을 불러옴.
+			Book selectBook = bookList.get(pickIndex);
+			
+			//bonus.
+			System.out.println("해당 도서를 정말 삭제하시겠습니까? : 1.예  2.아니오");
+			int pickDel = Integer.parseInt(scan.nextLine());
+			switch(pickDel) {
+			case 1 : {
+				
+				//3. 선택된 책에 대해 remove()로 접근하여 객체를 삭제.
+				bookList.remove(pickIndex);
+				System.out.println("✔ 삭제 완료!");
+				for(Book book : bookList) {
+					book.bookInfo();	
+				}
+				break;
+			}
+			case 2 : {
+				
+				break;
+			}
+			}	
+		}
+		
+		//14-1. 책을 제목순으로 정렬
+		
+		
+		//14-2. 책을 가격순(오름차순)으로 정렬
+		
+		
+		//14-3. 책을 최신순으로 정렬
+		
+		
+		//15. 오늘의 책을 추천해주는 randomBook 메소드
 		public void randomBook() {
 			
 		}

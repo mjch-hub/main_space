@@ -17,7 +17,7 @@ public class BookHouse {
 	 * 
 	 */
 	// 0. 스캐너, 멤버리스트, 로그인멤버
-	private Scanner scanner = new Scanner(System.in);
+	private Scanner scan = new Scanner(System.in);
 	private MemberList memberList = new MemberList();
 	private Member loginMember;
 
@@ -49,17 +49,17 @@ public class BookHouse {
 				 ╙================================================❣️================================================╜
 				""");
 			try {
-				int num = Integer.parseInt(scanner.nextLine());
+				int num = Integer.parseInt(scan.nextLine());
 				if (num == 1) {
-					this.loginMember = memberList.login(scanner);
+					this.loginMember = memberList.login(scan);
 					if (this.loginMember == null)
 						continue;
 					else
 						this.mainMenu();
 				} else if (num == 2) {
-					memberList.regist(scanner);
+					memberList.regist(scan);
 				} else if (num == 3) {
-					scanner.close();
+					scan.close();
 				} else
 					throw new Exception();
 
@@ -83,7 +83,7 @@ public class BookHouse {
 				 ╙=============================================❣️================================================╜
 				""");
 			try {
-				int num = Integer.parseInt(scanner.nextLine());
+				int num = Integer.parseInt(scan.nextLine());
 				if (num == 1) {
 					this.createMode();
 					break;
@@ -122,10 +122,10 @@ public class BookHouse {
 				""");
 		
 		try {
-			int menuNum = Integer.parseInt(scanner.nextLine());
+			int menuNum = Integer.parseInt(scan.nextLine());
 			switch (menuNum) {
 			case 1 : {//1. 새 책 만들기 : 에 대하여 bookList를 받아온 다음 create메소드 실행
-				loginMember.getBookList().create(scanner);
+				loginMember.getBookList().create(scan);
 				break;
 			}
 			case 2 : {// 2. 뒤로 가기 : while문을 끝내고 이전 화면으로 돌아간다.
@@ -157,10 +157,10 @@ public class BookHouse {
 				         
 				╙================================================❣️================================================╜
 				""");
-			int readMenu = Integer.parseInt(scanner.nextLine());
+			int readMenu = Integer.parseInt(scan.nextLine());
 			switch (readMenu) {
 			case 1: {// 전체목록 보기
-				loginMember.getBookList().aBread();
+				loginMember.getBookList().aBread(scan);
 				break;
 			}
 			case 2: {// 전자책만 보기
@@ -172,7 +172,7 @@ public class BookHouse {
 				break;
 			}
 			case 4: {// 도서 검색하기
-				loginMember.getBookList().bFinder(scanner);
+				loginMember.getBookList().bFinder(scan);
 				break;
 			}
 			case 5: {
@@ -198,15 +198,11 @@ public class BookHouse {
 				╙================================================❣️================================================╜
 				""");
 		try {
-			int upMenu = Integer.parseInt(scanner.nextLine());
+			int upMenu = Integer.parseInt(scan.nextLine());
 			switch (upMenu) {
 			case 1: {
-				loginMember.getBookList().aBread();
-				System.out.println("수정할 도서의 도서번호를 입력해주세요 : ");
 				
-				//가격 수정 입력받고, 수정 메소드 불러오기.
-				System.out.println("수정할 가격을 입력해주세요 : ");
-				int num = Integer.parseInt(scanner.nextLine());
+				
 				break;
 			}
 			case 2: {

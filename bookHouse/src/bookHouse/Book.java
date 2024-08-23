@@ -1,6 +1,8 @@
 package bookHouse;
 
-public class Book {
+import java.util.Comparator;
+
+public class Book implements Comparable<Book>{
 	/*Book 클래스 구성 요소
 	 * 1. 책 정보를 구성하는 변수(제목,저자,가격,출판사,출간일,전자책여부,도서번호)***캡슐화 할것!***
 	 * 2. 책의 모든 변수를 포함하는 생성자
@@ -123,6 +125,21 @@ public class Book {
 			System.out.println(toString()+ " ]");
 		}
 	}
+
 	
+
+	//(default)제목순으로 정렬 : 같은 제목일 경우 인덱스 순으로 정렬.
+	@Override
+	public int compareTo(Book books) {
+		return this.title.compareTo(books.getTitle());
+	}
+	
+	
+	
+	//가격순(오름차순)으로 정렬
+	
+	
+	
+	//가격순(내림차순)으로 정렬
 	
 }
